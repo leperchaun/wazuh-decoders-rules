@@ -1,0 +1,44 @@
+<!-- Author: Dave Leon
+This file is AS IS, I do not provide any support or gurrantee this will work on your system. 
+It has been configured to work with my MX, adjust the regex as needed
+ -->
+
+<group name="meraki">
+    <rule id="100201" level="3">
+        <field name="connection">true</field>
+        <description>Site-to-Site VPN is Up</description>
+    </rule>
+        <rule id="100202" level="3">
+        <field name="connection">false</field>
+        <description>Site-to-Site VPN is Down</description>
+    </rule>
+    <rule id="100203" level="3">
+        <match>content_filtering_block</match>
+        <description>URL $(url) has been blocked, Content filter category $(Category)</description>
+    </rule>
+    <rule id="100204" level="3">
+        <field name="decision" type="pcre2">(!?)blocked</field>
+        <description>$(srcip) tried to connect to $(dstip) on $(protocol)/$(dstport), the connection has been blocked.</description>
+    </rule>
+    <rule id="100204" level="5">
+        <field name="vpn_action" type="pcre2">(!?)vpn_connect</field>
+        <description>$(srcip) tried to connect to $(dstip) on $(protocol)/$(dstport), the connection has been blocked.</description>
+    </rule>  
+    <rule id="100205" level="5">
+        <field name="vpn_action" type="pcre2">(!?)client_vpn</field>
+        <description>User $(username) $(vpn_action)ed from $(dstip)</description>
+    </rule>  
+        <rule id="100206" level="5">
+        <field name="vpn_action" type="pcre2">(!?)client_vpn</field>
+        <description>User $(username) $(vpn_action)ed from $(dstip)</description>
+    </rule> 
+        <rule id="100207" level="5">
+        <field name="tunnel_action" type="pcre2">(!?)Deleted|Added</field>
+        <description>VPN Tunnel $(tunnel_action) by $(username) from $(srcip)</description>
+    </rule> 
+    <rule id="100208" level="8">
+        <if_sid>100203</if_sid>
+        <field name="Category" type="pcre2">(!?)Pornography|Nudity</field>
+        <description>$(username) tried to visit a blocked a url that was in a blocked category, $(url) was classified as $(Category)</description>
+    </rule> 
+</group>
