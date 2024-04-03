@@ -1,10 +1,16 @@
 <!-- 
-This file is AS IS, I do not provide any support or gurrantee this will work on your system. 
+This file is AS IS, I do not provide any support or guarantee this will work on your system. 
 It has been configured to work with my MX, adjust the regex as needed
  -->
 
 <decoder name="meraki">
   <prematch type="pcre2">\d{9,10}\.\d{9,10}</prematch>
+</decoder>
+<decoder name="mearki">
+    <parent>meraki</parent>
+    <regex type="pcre2">MX68W\s(\S+)\s(\S+)\s\w+=\d:(\d+):\d\s\w+=\d\s\w+=([^|\s]+)\s\w+=(\S+)\s\w+=(\S+)\s\w+=([^|\/]+)\/(\S+)\s\w+=(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d+)\s\w+=(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d+)\s\w+=(\w+)\s\w+=([^|\:]+):\s(.*)</regex>
+    
+    <order>event,ids,signature,timestamp_custom,dest_macaddress,direction,protocol,protocol_2,srcip,srcport,dstip,dstport,decision,action,message</order>
 </decoder>
 
 <decoder name="meraki">
@@ -177,3 +183,45 @@ It has been configured to work with my MX, adjust the regex as needed
   <regex type="pcre2">category0\=\'([^|']+)</regex>
   <order>Category</order>
 </decoder>
+
+<!--URL Decoder-->
+<decoder name="macaddress">
+  <parent>meraki</parent>
+  <regex type="pcre2">mac=(\S+)</regex>
+  <order>macaddress</order>
+</decoder>
+
+<decoder name="category">
+  <parent>meraki</parent>
+  <regex type="pcre2">category0\=\'([^|']+)</regex>
+  <order>Category</order>
+</decoder>
+<decoder name="server">
+  <parent>meraki</parent>
+  <regex type="pcre2">server='(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}):(\d+)</regex>
+  <order>dstip</order>
+</decoder>
+<decoder name="client">
+  <parent>meraki</parent>
+  <regex type="pcre2">client_mac='([^']*)'</regex>
+  <order>macaddress</order>
+</decoder>
+
+<decoder name="meraki">
+  <parent>meraki</parent>
+  <regex type="pcre2">url='([^']*)...'</regex>
+  <order>url</order>
+</decoder>
+
+<decoder name="meraki">
+  <parent>meraki</parent>
+  <regex type="pcre2">request: ([A-Z]+)</regex>
+  <order>method</order>
+</decoder>
+
+<decoder name="meraki">
+  <parent>meraki</parent>
+  <regex type="pcre2">https:\/\/([^\/]+)</regex>
+  <order>url</order>
+</decoder>
+

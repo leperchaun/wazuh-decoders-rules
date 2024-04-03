@@ -40,5 +40,9 @@ It has been configured to work with my MX, adjust the regex as needed
         <if_sid>100203</if_sid>
         <field name="Category" type="pcre2">(!?)Pornography|Nudity</field>
         <description>$(username) tried to visit a blocked a url that was in a blocked category, $(url) was classified as $(Category)</description>
+    </rule>
+    <rule id="100209" level="12">
+        <field name="ids" type="pcre2">(!?)ids_alerted</field>
+        <description>$(event), $(ids). Source=$(srcip) Signature=$(signature). Snort Message $(message). Action=$(decision).</description>
     </rule> 
 </group>
