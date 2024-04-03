@@ -183,6 +183,7 @@ It has been configured to work with my MX, adjust the regex as needed
   <regex type="pcre2">category0\=\'([^|']+)</regex>
   <order>Category</order>
 </decoder>
+<<<<<<< HEAD
 
 <!--URL Decoder-->
 <decoder name="macaddress">
@@ -225,3 +226,5 @@ It has been configured to work with my MX, adjust the regex as needed
   <order>url</order>
 </decoder>
 
+=======
+>>>>>>> 94a778550f71c2711deb488d5a492dd37fbacce9
