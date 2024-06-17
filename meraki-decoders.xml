@@ -1,16 +1,16 @@
 <!-- 
 This file is AS IS, I do not provide any support or guarantee this will work on your system. 
 It has been configured to work with my MX, adjust the regex as needed
- -->
+-->
 
 <decoder name="meraki">
   <prematch type="pcre2">\d{9,10}\.\d{9,10}</prematch>
 </decoder>
+
 <decoder name="mearki">
-    <parent>meraki</parent>
-    <regex type="pcre2">MX68W\s(\S+)\s(\S+)\s\w+=\d:(\d+):\d\s\w+=\d\s\w+=([^|\s]+)\s\w+=(\S+)\s\w+=(\S+)\s\w+=([^|\/]+)\/(\S+)\s\w+=(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d+)\s\w+=(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d+)\s\w+=(\w+)\s\w+=([^|\:]+):\s(.*)</regex>
-    
-    <order>event,ids,signature,timestamp_custom,dest_macaddress,direction,protocol,protocol_2,srcip,srcport,dstip,dstport,decision,action,message</order>
+  <parent>meraki</parent>
+  <regex type="pcre2">MX68W\s(\S+)\s(\S+)\s\w+=\d:(\d+):\d\s\w+=\d\s\w+=([^|\s]+)\s\w+=(\S+)\s\w+=(\S+)\s\w+=([^|\/]+)\/(\S+)\s\w+=(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d+)\s\w+=(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d+)\s\w+=(\w+)\s\w+=([^|\:]+):\s(.*)</regex>
+  <order>event,ids,signature,timestamp_custom,dest_macaddress,direction,protocol,protocol_2,srcip,srcport,dstip,dstport,decision,action,message</order>
 </decoder>
 
 <decoder name="meraki">
@@ -18,213 +18,201 @@ It has been configured to work with my MX, adjust the regex as needed
   <regex type="pcre2">MX68W events type=([\w\-]+) vpn_type='([\w\-]+)' peer_contact='(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}):(\d+)' peer_ident='([\w\d]+)' connectivity='(true|false)'</regex>
   <order>eventtype,vpntype,srcip,srcport,peer_id,connection</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">src=\[([A-Fa-f0-9:]+)\]:(\d+)\s+dst=\[([A-Fa-f0-9:]+)\]:(\d+)</regex>
   <order>srcip,srcport,dstip,dstport</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">mac=([0-9A-Fa-f]{2}(?::[0-9A-Fa-f]{2}){5})\s+agent='([^']*)'\s+request: ([A-Z]+) ([^\s]+)\s*(http[s]?:\/\/[^\s]+)?</regex>
   <order>macaddress,agent,method,url</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">src=(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})</regex>
   <order>srcip</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">dst=(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})</regex>
   <order>dstip</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">translated_src_ip=(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})</regex>
   <order>natip</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">translated_port=(\S+)</regex>
   <order>natport</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">sport=(\S+)</regex>
   <order>srcport</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">dport=(\S+)</regex>
   <order>dstport</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">protocol=(\S+)</regex>
   <order>protocol</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">pattern:\sGroup\sPolicy\s(\S+)</regex>
   <order>group policy action</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">decision=(\S+)</regex>
   <order>decision</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">server='(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}):(\d+)</regex>
   <order>dstip</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">client_mac='([^']*)'</regex>
   <order>macaddress</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">url='([^']*)...'</regex>
   <order>url</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">local ip\s(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})</regex>
   <order>srcip</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">Peer\sIP=(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})</regex>
   <order>srcip</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">from\s(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})</regex>
   <order>dstip</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">events\s(\w+(?=_v2))</regex>
   <order>vpn_action</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">user\sid\s'([^']*)'</regex>
   <order>username</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">(\d{4})-(\d{2})-(\d{2})T(\d{2}:\d{2}:\d{2})</regex>
   <order>year,month,day,eventtime</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">Sess-ID\[(\d)</regex>
   <order>sessionid</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">Duration\:\s(\d+)d:(\d+)h:(\d+)m:(\d+)s</regex>
   <order>days,hours,minutes,seconds</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">type=(\S+)</regex>
   <order>type</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">Type:\s([^\,]+)</regex>
   <order>sessiontype</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">User\[([^\]]+)</regex>
   <order>username</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">assigned IP\=(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})</regex>
   <order>assigned_ip</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">conn_id\[([^\]]+)</regex>
   <order>connection_id</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">\b(Deleted|Added)\s+((?:DTLS|TLS)\s+tunnel\b)</regex>
   <order>tunnel_action,tunnel_type</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">Reason\D\s([^\']+)\s</regex>
   <order>disconnection_reason</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">Bytes\s+xmt:\s+(\d+),\s+Bytes\s+rcv:\s+(\d+)</regex>
   <order>bytes_sent,bytes_rec</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">Peer IP\=(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})</regex>
   <order>srcip</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">user\=\'CN\=([^|,]+)</regex>
   <order>username</order>
 </decoder>
+
 <decoder name="meraki">
   <parent>meraki</parent>
   <regex type="pcre2">category0\=\'([^|']+)</regex>
   <order>Category</order>
 </decoder>
-<<<<<<< HEAD
-
-<!--URL Decoder-->
-<decoder name="macaddress">
-  <parent>meraki</parent>
-  <regex type="pcre2">mac=(\S+)</regex>
-  <order>macaddress</order>
-</decoder>
-
-<decoder name="category">
-  <parent>meraki</parent>
-  <regex type="pcre2">category0\=\'([^|']+)</regex>
-  <order>Category</order>
-</decoder>
-<decoder name="server">
-  <parent>meraki</parent>
-  <regex type="pcre2">server='(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}):(\d+)</regex>
-  <order>dstip</order>
-</decoder>
-<decoder name="client">
-  <parent>meraki</parent>
-  <regex type="pcre2">client_mac='([^']*)'</regex>
-  <order>macaddress</order>
-</decoder>
-
-<decoder name="meraki">
-  <parent>meraki</parent>
-  <regex type="pcre2">url='([^']*)...'</regex>
-  <order>url</order>
-</decoder>
-
-<decoder name="meraki">
-  <parent>meraki</parent>
-  <regex type="pcre2">request: ([A-Z]+)</regex>
-  <order>method</order>
-</decoder>
-
-<decoder name="meraki">
-  <parent>meraki</parent>
-  <regex type="pcre2">https:\/\/([^\/]+)</regex>
-  <order>url</order>
-</decoder>
-
-=======
->>>>>>> 94a778550f71c2711deb488d5a492dd37fbacce9
